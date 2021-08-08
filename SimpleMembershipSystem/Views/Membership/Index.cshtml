@@ -1,0 +1,52 @@
+﻿@model IReadOnlyCollection<Member>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Membership" asp-action="Index">
+    <p>
+        LastName: <input type="text" name="search" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Member Id</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Date of Birth</td>
+            <td>Phone No</td>
+            <td>Email</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model) 
+        {
+            <tr>
+                <td>@m.Id</td>
+                <td>@m.FirstName</td>
+                <td>@m.LastName</td>
+                <td>@m.DateOfBirth.ToShortDateString()</td>
+                <td>@m.PhoneNumber</td>
+                <td>@m.Email</td>
+
+                <td>
+                    <a asp-action="Detail" asp-route-id="@m.Id">Detail</a>
+                    <a asp-action="Edit" asp-route-id="@m.Id">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@m.Id">Delete</a>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
